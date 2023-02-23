@@ -1,12 +1,13 @@
-import React from "react";
-import PageContainer from "../containers/PageContainer";
+import HomeButtons from "../components/HomeButtons";
 import Logo from "../components/Logo";
+import { LogoSizeEnum } from "../enums/LogoSizeEnum";
 
 function Home() {
   return (
-    <>
-      <Logo />
-    </>
+    <div className='pt-14'>
+      <Logo size={LogoSizeEnum.LARGE} />
+      <HomeButtons />
+    </div>
   );
 }
 

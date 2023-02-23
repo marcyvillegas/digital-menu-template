@@ -6,7 +6,7 @@ type PageContainerPropType = {
 
 function PageContainer({children}:PageContainerPropType) {
   return (
-    <div className='flex justify-center w-full p-4'>
+    <div className='flex justify-center flex-col items-center h-full w-full p-4'>
         {children}
     </div>
   );
