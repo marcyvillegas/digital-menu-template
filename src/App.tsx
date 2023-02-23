@@ -1,11 +1,12 @@
+import PageContainer from "./containers/PageContainer";
+import Home from "./pages/Home";
 
 function App() {
-
   return (
-    <div>
-      
-    </div>
-  )
+    <PageContainer>
+      <Home />
+    </PageContainer>
+  );
 }
 
-export default App
+export default App;

@@ -1,11 +1,12 @@
-import React from 'react';
-import PageContainer from '../containers/PageContainer';
+import React from "react";
+import PageContainer from "../containers/PageContainer";
+import Logo from "../components/Logo";
 
 function Home() {
   return (
-    <PageContainer>
-      <p>logo is here</p>
-    </PageContainer>
+    <>
+      <Logo />
+    </>
   );
 }
 
