@@ -3,12 +3,17 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Menu from "./pages/Menu";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
   },
+  {
+    path: "/menu",
+    element: <Menu />
+  }
 ]);
 
 function App() {
