@@ -1,11 +1,19 @@
-import PageContainer from "./containers/PageContainer";
 import Home from "./pages/Home";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+]);
 
 function App() {
   return (
-    <PageContainer>
-      <Home />
-    </PageContainer>
+    <RouterProvider router={router} />
   );
 }
 

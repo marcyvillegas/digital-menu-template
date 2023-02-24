@@ -5,6 +5,10 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'abeezee': ['ABeeZee', 'sans-serif'],
+      'oxygen': ['Oxygen', 'sans-serif']
+    },
     extend: {},
   },
   plugins: [],
