@@ -1,9 +1,17 @@
-import { Breakfast, BreakfastType } from "./breakfast";
+import { Beef, Breakfast, Dessert, Pork, Seafood, SubMenuType } from "./subMenus";
 
 type MenuType = {
-    breakfast: BreakfastType[]
+    breakfast: SubMenuType[],
+    pork: SubMenuType[],
+    beef: SubMenuType[],
+    seafood: SubMenuType[],
+    dessert: SubMenuType[]
 }
 
-const Menu: MenuType[] = [{
-    breakfast: Breakfast
-}]
+export const Menu: MenuType = {
+    breakfast: Breakfast,
+    pork: Pork,
+    beef: Beef,
+    seafood: Seafood,
+    dessert: Dessert
+}
