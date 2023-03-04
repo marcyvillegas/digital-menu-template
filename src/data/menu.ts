@@ -1,6 +1,6 @@
 import { Beef, Breakfast, Dessert, Pork, Seafood, SubMenuType } from "./subMenus";
 
-type MenuType = {
+export type MenuType = {
     breakfast: SubMenuType[],
     pork: SubMenuType[],
     beef: SubMenuType[],
