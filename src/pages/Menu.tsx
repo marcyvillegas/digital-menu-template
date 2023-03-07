@@ -9,7 +9,6 @@ function Menu() {
     <PageContainer>
       <Logo size={LogoSizeEnum.SMALL} />
       <MenuWrapper>
-        {/* Search and Filter component wrapper */}
         <MenuContainer />
       </MenuWrapper>
     </PageContainer>
