@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react";
 
-function MenuWrapper({children}: PropsWithChildren) {
+function MenuWrapper({ children }: PropsWithChildren) {
   return (
-    <div>
-        {children}
+    <div className="flex justify-center">
+      <div className="w-full">{children}</div>
     </div>
   );
 }

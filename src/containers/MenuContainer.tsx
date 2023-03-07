@@ -1,26 +1,23 @@
 import { useState } from "react";
+import MenuCategoryName from "../components/MenuCategoryName";
 import { Menu, MenuType } from "../data/menu";
 import { SubMenuType } from "../data/subMenus";
 
-// todo:
-// add mapping of sub menus and food list
+// TODO:
+// add mapping of sub menus and food list <- create component for Sub Menu Name and Food Items
 // useHook for filter and search
 function MenuContainer() {
   const [menuData, setMenuData] = useState(Menu);
 
-  function getSubMenu() {
-    let menuItems = [];
+  function getSubMenu(): Array<JSX.Element> {
+    let subMenuItems: Array<JSX.Element> = [];
 
     for (const subMenu in menuData) {
-      const foodList = menuData[subMenu as keyof MenuType].map(
-        (menuItem: SubMenuType) => menuItem
-      );
+      const foodList = menuData[subMenu as keyof MenuType];
 
       let createdSubMenu = (
         <>
-          <p key={subMenu}>
-            {subMenu.charAt(0).toUpperCase() + subMenu.slice(1)}
-          </p>
+          <MenuCategoryName name={subMenu} />
           {foodList.map((item) => (
             <>
               <p>{item.name}</p>
@@ -30,10 +27,10 @@ function MenuContainer() {
         </>
       );
 
-      menuItems.push(createdSubMenu);
+      subMenuItems.push(createdSubMenu);
     }
 
-    return menuItems.map((item) => item);
+    return subMenuItems.map((item) => item);
   }
 
   return <>{getSubMenu()}</>;

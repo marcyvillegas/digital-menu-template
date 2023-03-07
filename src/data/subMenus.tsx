@@ -3,7 +3,7 @@ export type SubMenuType = {
     details: string;
     isNew: boolean;
     isFavorite: boolean;
-    price: number
+    price: number;
 }
 
 export const Breakfast: SubMenuType[] = [

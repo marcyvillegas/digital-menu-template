@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SubMenuList() {
+function FoodItems() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function SubMenuList() {
   );
 }
 
-export default SubMenuList;
+export default FoodItems;
