@@ -1,11 +1,12 @@
 import { useState } from "react";
 import FoodItems from "../components/FoodItems";
 import MenuCategoryName from "../components/MenuCategoryName";
+import SearchInput from "../components/SearchInput";
 import { Menu, MenuType } from "../data/menu";
 
 // TODO:
-// add mapping of sub menus and food list <- create component for Sub Menu Name and Food Items
-// add addDecimal util
+// back button
+// search and filter component
 // useHook for filter and search
 function MenuContainer() {
   const [menuData, setMenuData] = useState(Menu);
@@ -29,7 +30,14 @@ function MenuContainer() {
     return subMenuItems.map((item) => item);
   }
 
-  return <>{getSubMenu()}</>;
+  return (
+    <>
+      <div>
+        <SearchInput />
+      </div>
+      {getSubMenu()}
+    </>
+  );
 }
 
 export default MenuContainer;

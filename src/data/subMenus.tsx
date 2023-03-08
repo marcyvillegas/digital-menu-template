@@ -11,7 +11,21 @@ export const Breakfast: SubMenuType[] = [
     name: "Tapa & Garlic Fried Rice",
     details: "",
     isNew: false,
-    isFavorite: true,
+    isFavorite: false,
+    price: 100.5,
+  },
+  {
+    name: "Longganisa & Garlic Fried Rice",
+    details: "",
+    isNew: false,
+    isFavorite: false,
+    price: 100.5,
+  },
+  {
+    name: "Bangus & Garlic Fried Rice",
+    details: "",
+    isNew: true,
+    isFavorite: false,
     price: 100.5,
   },
 ];
