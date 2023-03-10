@@ -13,7 +13,10 @@ import useSearch from "../hooks/useSearch";
 function MenuContainer() {
   const [menuData, setMenuData] = useState<MenuType>(Menu);
 
-  const { searchValue, changeSearchValue } = useSearch(menuData);
+  const { searchValue, changeSearchValue, isSearching } = useSearch(
+    menuData,
+    setMenuData
+  );
 
   function getSubMenu(): Array<JSX.Element> {
     let subMenuItems: Array<JSX.Element> = [];
@@ -23,7 +26,7 @@ function MenuContainer() {
 
       let createdSubMenu = (
         <>
-          <MenuCategoryName name={subMenu} />
+          {foodList.length !== 0 && <MenuCategoryName name={subMenu} />}
           <FoodItems foodList={foodList} />
         </>
       );
@@ -35,16 +38,16 @@ function MenuContainer() {
   }
 
   return (
-    <>
+    <div className="w-100">
       <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
         <img src="src/assets/back_icon.png" />
       </button>
-      <div className="mb-5 flex justify-between items-center">
+      <div className="mb-5 grid grid-cols-4 gap-4">
         <SearchInput value={searchValue} onChange={changeSearchValue} />
         <FilterButton />
       </div>
-      {getSubMenu()}
-    </>
+      {isSearching ? <>SEARCHING</> : getSubMenu()}
+    </div>
   );
 }
 

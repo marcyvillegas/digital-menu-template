@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import { MenuType } from "../data/menu";
 
 // USE SEARCH LOGIC
-// filter the data
-// have a delay when searching and return isSearching value
-// return searchedMenu data
+// add "no data"
 
-function useSearch(menuData: MenuType) {
+function useSearch(
+  menuData: MenuType,
+  setMenuData: React.Dispatch<React.SetStateAction<MenuType>>
+) {
+  const [timer, setTimer] = useState(null);
   const [searchValue, setSearchValue] = useState<string>("");
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [searchedData, setSearchedData] = useState<MenuType>(menuData);
-  const [timer, setTimer] = useState(null);
+  const [originalMenuData] = useState<MenuType>(menuData);
 
-  function getSearchedData(data: MenuType) {
-    // seconds delay (setTimeout)
-    // isSearching: true
-    // for in loop
-    // search name of food item from search value
-    //
+  function getSearchedData() {
+    setMenuData(originalMenuData);
 
     let menuDataObject: any = {};
 
@@ -25,24 +22,35 @@ function useSearch(menuData: MenuType) {
       const foodList = menuData[subMenu as keyof MenuType];
 
       const filteredFoodList = foodList.filter((item) =>
-        item.name.includes(searchValue)
+        item.name.toLowerCase().includes(searchValue.toLowerCase())
       );
 
       menuDataObject[subMenu] = filteredFoodList;
+      setIsSearching(false);
     }
-    console.log(menuDataObject);
+
+    setMenuData(menuDataObject);
   }
 
   function changeSearchValue(event: React.ChangeEvent<HTMLInputElement>): void {
+    setIsSearching(true);
     setSearchValue(event.target.value);
+
+    if (event.target.value.trim() === "") {
+      setIsSearching(false);
+      clearTimeout(timer as any);
+      return setMenuData(originalMenuData);
+    }
+
     clearTimeout(timer as any);
-    const newTimer = setTimeout(() => getSearchedData(menuData), 1000);
+    const newTimer = setTimeout(() => getSearchedData(), 1000);
     setTimer(newTimer as any);
   }
 
   return {
     searchValue,
     changeSearchValue,
+    isSearching
   };
 }
 
