@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { MenuType } from "../data/menu";
 
-// USE SEARCH LOGIC
-// add "no data"
-
 function useSearch(
   menuData: MenuType,
   setMenuData: React.Dispatch<React.SetStateAction<MenuType>>

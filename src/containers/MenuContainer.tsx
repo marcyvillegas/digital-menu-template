@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FilterButton from "../components/FilterButton";
+import FilterModal from "../components/FilterModal";
 import FoodItems from "../components/FoodItems";
 import MenuCategoryName from "../components/MenuCategoryName";
 import SearchInput from "../components/SearchInput";
@@ -8,10 +9,10 @@ import useSearch from "../hooks/useSearch";
 
 // TODO:
 // filter modal component
-// useHook for filter and search
 
 function MenuContainer() {
   const [menuData, setMenuData] = useState<MenuType>(Menu);
+  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
 
   const { searchValue, changeSearchValue, isSearching } = useSearch(
     menuData,
@@ -37,17 +38,24 @@ function MenuContainer() {
     return subMenuItems.map((item) => item);
   }
 
+  function toggleFilterModal() {
+    setShowFilterModal(!showFilterModal)
+  }
+
   return (
-    <div className="w-100">
-      <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
-        <img src="src/assets/back_icon.png" />
-      </button>
-      <div className="mb-5 grid grid-cols-4 gap-4">
-        <SearchInput value={searchValue} onChange={changeSearchValue} />
-        <FilterButton />
+    <>
+      {showFilterModal &&<FilterModal />}
+      <div className="w-100">
+        <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
+          <img src="src/assets/back_icon.png" />
+        </button>
+        <div className="mb-5 grid grid-cols-4 gap-4">
+          <SearchInput value={searchValue} onChange={changeSearchValue} />
+          <FilterButton onClick={toggleFilterModal} />
+        </div>
+        {isSearching ? <>SEARCHING</> : getSubMenu()}
       </div>
-      {isSearching ? <>SEARCHING</> : getSubMenu()}
-    </div>
+    </>
   );
 }
 
