@@ -7,9 +7,6 @@ import SearchInput from "../components/SearchInput";
 import { Menu, MenuType } from "../data/menu";
 import useSearch from "../hooks/useSearch";
 
-// TODO:
-// filter modal component
-
 function MenuContainer() {
   const [menuData, setMenuData] = useState<MenuType>(Menu);
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
@@ -42,6 +39,8 @@ function MenuContainer() {
     setShowFilterModal(!showFilterModal);
   }
 
+  const menuItems = isSearching ? <>SEARCHING</> : getSubMenu()
+
   return (
     <div className="w-100">
       {showFilterModal && <FilterModal />}
@@ -52,7 +51,7 @@ function MenuContainer() {
         <SearchInput value={searchValue} onChange={changeSearchValue} />
         <FilterButton onClick={toggleFilterModal} />
       </div>
-      {isSearching ? <>SEARCHING</> : getSubMenu()}
+      {menuItems}
     </div>
   );
 }
