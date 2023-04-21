@@ -1,7 +1,32 @@
 import React from "react";
 import FilterCategoryButton from "./FilterCategoryButton";
+import { MenuType } from "../data/menu";
 
-function FilterModal() {
+type PropsType = {
+  menuData: MenuType;
+}
+
+function FilterModal(props: PropsType) {
+
+  const { menuData } = props;
+
+  function getMenuCategories(): Array<JSX.Element> {
+    let subMenuItems: Array<JSX.Element> = [];
+
+    for (const subMenu in menuData) {
+
+      let createdSubMenu = (
+        <>
+          <FilterCategoryButton name={subMenu} />
+        </>
+      );
+
+      subMenuItems.push(createdSubMenu);
+    }
+
+    return subMenuItems.map((item) => item);
+  }
+
   return (
     <div className="fixed mt-5">
       <div className="z-10 p-4 w-100 rounded-md bg-[#FDF2D7] border-[1px] border-[#AD6639] flex justify-center flex-col">
@@ -12,7 +37,7 @@ function FilterModal() {
           </p>
 
           {/* Map button menu categories here */}
-          <FilterCategoryButton name="Breakfast" />
+          {getMenuCategories()}
         </div>
 
         <div className="mt-3">

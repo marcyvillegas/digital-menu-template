@@ -16,7 +16,9 @@ function MenuContainer() {
     setMenuData
   );
 
-  function getSubMenu(): Array<JSX.Element> {
+  // filter custom hook here
+
+  function getMenuCategories(): Array<JSX.Element> {
     let subMenuItems: Array<JSX.Element> = [];
 
     for (const subMenu in menuData) {
@@ -39,11 +41,13 @@ function MenuContainer() {
     setShowFilterModal(!showFilterModal);
   }
 
-  const menuItems = isSearching ? <>SEARCHING</> : getSubMenu()
+  const menuItems = isSearching ? <>SEARCHING</> : getMenuCategories()
+
+  const filterModal = showFilterModal && <FilterModal menuData={menuData} />
 
   return (
     <div className="w-100">
-      {showFilterModal && <FilterModal />}
+      {filterModal}
       <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
         <img src="src/assets/back_icon.png" />
       </button>
