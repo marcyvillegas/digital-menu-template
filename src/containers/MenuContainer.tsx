@@ -16,6 +16,8 @@ function MenuContainer() {
     setMenuData
   );
 
+  console.log(menuData);
+
   // filter custom hook here
 
   function getMenuCategories(): Array<JSX.Element> {
@@ -37,25 +39,27 @@ function MenuContainer() {
     return subMenuItems.map((item) => item);
   }
 
-  function toggleFilterModal() {
+  function toggleFilterModal(): void {
     setShowFilterModal(!showFilterModal);
   }
 
-  const menuItems = isSearching ? <>SEARCHING</> : getMenuCategories()
+  const menuItems = isSearching ? <>SEARCHING</> : getMenuCategories();
 
-  const filterModal = showFilterModal && <FilterModal menuData={menuData} />
+  const filterModal = showFilterModal && <FilterModal />;
 
   return (
-    <div className="w-100">
+    <div className="flex justify-center">
       {filterModal}
-      <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
-        <img src="src/assets/back_icon.png" />
-      </button>
-      <div className="mb-5 grid grid-cols-4 gap-4">
-        <SearchInput value={searchValue} onChange={changeSearchValue} />
-        <FilterButton onClick={toggleFilterModal} />
+      <div className="w-100">
+        <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
+          <img src="src/assets/back_icon.png" />
+        </button>
+        <div className="mb-5 grid grid-cols-4 gap-4">
+          <SearchInput value={searchValue} onChange={changeSearchValue} />
+          <FilterButton onClick={toggleFilterModal} />
+        </div>
+        {menuItems}
       </div>
-      {menuItems}
     </div>
   );
 }
