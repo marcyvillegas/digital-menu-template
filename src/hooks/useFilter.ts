@@ -18,6 +18,8 @@ function useFilter(
     isBestSeller: false,
   });
   const [originalMenuData] = useState<MenuType>(menuData);
+  const [applyFilterButtonIsClicked, setAppliedFilterIsClicked] =
+    useState<boolean>(false);
 
   function removeFilter(): void {
     setSelectedCategories([]);
@@ -27,6 +29,8 @@ function useFilter(
     });
     setMenuData(originalMenuData);
   }
+
+  console.log(originalMenuData)
 
   function filterMenuByCategory(
     categories: (keyof MenuType)[],
@@ -39,6 +43,10 @@ function useFilter(
 
     if (categories.length === 0 && (filters.isNew || filters.isBestSeller)) {
       categories = Object.keys(menuData) as (keyof MenuType)[];
+    }
+
+    if (categories.length === 0 && !filters.isNew && !filters.isBestSeller) {
+      return setMenuData(originalMenuData);
     }
 
     for (const subMenu in originalMenuData) {
@@ -77,6 +85,8 @@ function useFilter(
     setFilterValues,
     filterMenuByCategory,
     removeFilter,
+    applyFilterButtonIsClicked,
+    setAppliedFilterIsClicked,
     //number of filters
   };
 }

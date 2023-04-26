@@ -26,6 +26,8 @@ function MenuContainer() {
     filterValues,
     setFilterValues,
     removeFilter,
+    applyFilterButtonIsClicked,
+    setAppliedFilterIsClicked,
   } = useFilter(menuData, setMenuData);
 
   function redirectToHome(): void {
@@ -66,6 +68,8 @@ function MenuContainer() {
       filterValues={filterValues}
       setFilterValues={setFilterValues}
       removeFilter={removeFilter}
+      applyFilterButtonIsClicked={applyFilterButtonIsClicked}
+      setAppliedFilterIsClicked={setAppliedFilterIsClicked}
     />
   );
 

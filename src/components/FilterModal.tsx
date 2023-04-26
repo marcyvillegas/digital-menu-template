@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MenuCategoryButton from "./FilterCategoryButton";
 import { Menu, MenuType } from "../data/menu";
 import { FilterValuesType } from "../hooks/useFilter";
@@ -21,6 +21,8 @@ type PropsType = {
   filterValues: FilterValuesType;
   setFilterValues: React.Dispatch<React.SetStateAction<FilterValuesType>>;
   removeFilter: () => void;
+  applyFilterButtonIsClicked: boolean;
+  setAppliedFilterIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function FilterModal(props: PropsType) {
@@ -32,6 +34,8 @@ function FilterModal(props: PropsType) {
     filterValues,
     setFilterValues,
     removeFilter,
+    applyFilterButtonIsClicked,
+    setAppliedFilterIsClicked,
   } = props;
 
   const menuData: MenuType = Menu;
@@ -84,7 +88,8 @@ function FilterModal(props: PropsType) {
     }
   }
 
-  function filterMenu(): void {
+  function applyFilters(): void {
+    setAppliedFilterIsClicked(true);
     filterMenuByCategory(selectedCategories, filterValues);
     toggleFilterModal();
   }
@@ -92,7 +97,7 @@ function FilterModal(props: PropsType) {
   const applyFilterButton = (
     <button
       className={"bg-[#AD6639] text-white p-2 rounded-md"}
-      onClick={filterMenu}
+      onClick={applyFilters}
     >
       Apply filters
     </button>
@@ -112,7 +117,8 @@ function FilterModal(props: PropsType) {
     if (
       selectedCategories.length !== 0 ||
       filterValues.isNew ||
-      filterValues.isBestSeller
+      filterValues.isBestSeller ||
+      applyFilterButtonIsClicked
     ) {
       return (
         <>
