@@ -19,6 +19,15 @@ function useFilter(
   });
   const [originalMenuData] = useState<MenuType>(menuData);
 
+  function removeFilter(): void {
+    setSelectedCategories([]);
+    setFilterValues({
+      isNew: false,
+      isBestSeller: false,
+    });
+    setMenuData(originalMenuData);
+  }
+
   function filterMenuByCategory(
     categories: (keyof MenuType)[],
     filters: {
@@ -67,6 +76,7 @@ function useFilter(
     filterValues,
     setFilterValues,
     filterMenuByCategory,
+    removeFilter,
     //number of filters
   };
 }

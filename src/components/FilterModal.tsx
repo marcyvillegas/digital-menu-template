@@ -2,6 +2,8 @@ import React from "react";
 import MenuCategoryButton from "./FilterCategoryButton";
 import { Menu, MenuType } from "../data/menu";
 import { FilterValuesType } from "../hooks/useFilter";
+import { changeButtonColor } from "../components/FilterCategoryButton";
+import OtherFilterButton from "./OtherFilterButton";
 
 type PropsType = {
   filterMenuByCategory: (
@@ -18,6 +20,7 @@ type PropsType = {
   >;
   filterValues: FilterValuesType;
   setFilterValues: React.Dispatch<React.SetStateAction<FilterValuesType>>;
+  removeFilter: () => void;
 };
 
 function FilterModal(props: PropsType) {
@@ -28,6 +31,7 @@ function FilterModal(props: PropsType) {
     setSelectedCategories,
     filterValues,
     setFilterValues,
+    removeFilter,
   } = props;
 
   const menuData: MenuType = Menu;
@@ -37,7 +41,11 @@ function FilterModal(props: PropsType) {
 
     for (const subMenu in menuData) {
       let createdSubMenu = (
-        <MenuCategoryButton name={subMenu} selectCategory={selectCategory} />
+        <MenuCategoryButton
+          name={subMenu}
+          selectCategory={selectCategory}
+          selectedCategories={selectedCategories}
+        />
       );
 
       subMenuItems.push(createdSubMenu);
@@ -47,10 +55,13 @@ function FilterModal(props: PropsType) {
   }
 
   function selectCategory(categoryName: string): void {
-    setSelectedCategories((prevData) => [
-      ...prevData,
-      categoryName as keyof MenuType,
-    ]);
+    setSelectedCategories((prevData) => {
+      if (selectedCategories.includes(categoryName as keyof MenuType)) {
+        return prevData.filter((item) => item !== categoryName);
+      }
+
+      return [...prevData, categoryName as keyof MenuType];
+    });
   }
 
   function selectOtherCategories(filterName: string): void {
@@ -58,7 +69,7 @@ function FilterModal(props: PropsType) {
       setFilterValues((prevData) => {
         return {
           ...prevData,
-          isNew: true,
+          isNew: !filterValues.isNew,
         };
       });
     }
@@ -67,7 +78,7 @@ function FilterModal(props: PropsType) {
       setFilterValues((prevData) => {
         return {
           ...prevData,
-          isBestSeller: true,
+          isBestSeller: !filterValues.isBestSeller,
         };
       });
     }
@@ -78,23 +89,26 @@ function FilterModal(props: PropsType) {
     toggleFilterModal();
   }
 
-  function removeFilters(): void {
-    setSelectedCategories([]);
-    setFilterValues({
-      isNew: false,
-      isBestSeller: false,
-    });
+  const applyFilterButton = <button onClick={filterMenu}>Apply filters</button>;
+  const clearFilterButton = <button onClick={removeFilter}>Clear</button>;
+
+  function displayModalButtons() {
+    if (
+      selectedCategories.length !== 0 ||
+      filterValues.isNew ||
+      filterValues.isBestSeller
+    ) {
+      return (
+        <>
+          {applyFilterButton}
+          {clearFilterButton}
+        </>
+      );
+    }
   }
 
-  const modalButton = (
-    <>
-      <hr className="w-100 mt-4 border-[#e6a881]" />
-      <div className="flex justify-end gap-2">
-        <button onClick={filterMenu}>Apply filters</button>
-        <button onClick={removeFilters}>Clear</button>
-      </div>
-    </>
-  );
+  const bestSellerButtonColor = changeButtonColor(filterValues.isBestSeller);
+  const newButtonColor = changeButtonColor(filterValues.isNew);
 
   return (
     <div className="fixed mt-5 m-3">
@@ -119,22 +133,21 @@ function FilterModal(props: PropsType) {
           </p>
 
           <div className="flex flex-wrap gap-1">
-            <button
-              className="p-2 mr-2 mt-1 border-[0.5px] border-[#6B4E3C] text-[#6B4E3C] font-abeezee rounded-md"
-              onClick={() => selectOtherCategories("Best Seller")}
-            >
-              Best Seller
-            </button>
-            <button
-              className="p-2 mr-2 mt-1 border-[0.5px] border-[#6B4E3C] text-[#6B4E3C] font-abeezee rounded-md"
-              onClick={() => selectOtherCategories("New")}
-            >
-              New
-            </button>
+            <OtherFilterButton
+              name={"Best Seller"}
+              selectOtherCategories={selectOtherCategories}
+              buttonColor={bestSellerButtonColor}
+            />
+            <OtherFilterButton
+              name={"New"}
+              selectOtherCategories={selectOtherCategories}
+              buttonColor={newButtonColor}
+            />
           </div>
         </div>
 
-        {modalButton}
+        <hr className="w-100 mt-4 border-[#e6a881]" />
+        <div className="flex justify-end gap-2">{displayModalButtons()}</div>
       </div>
     </div>
   );

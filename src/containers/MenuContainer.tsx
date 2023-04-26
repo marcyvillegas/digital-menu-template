@@ -26,6 +26,7 @@ function MenuContainer() {
     setSelectedCategories,
     filterValues,
     setFilterValues,
+    removeFilter,
   } = useFilter(menuData, setMenuData);
 
   function getMenuCategories(): Array<JSX.Element> {
@@ -61,6 +62,7 @@ function MenuContainer() {
       setSelectedCategories={setSelectedCategories}
       filterValues={filterValues}
       setFilterValues={setFilterValues}
+      removeFilter={removeFilter}
     />
   );
 
