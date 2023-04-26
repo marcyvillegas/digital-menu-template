@@ -89,8 +89,24 @@ function FilterModal(props: PropsType) {
     toggleFilterModal();
   }
 
-  const applyFilterButton = <button onClick={filterMenu}>Apply filters</button>;
-  const clearFilterButton = <button onClick={removeFilter}>Clear</button>;
+  const applyFilterButton = (
+    <button
+      className={"bg-[#AD6639] text-white p-2 rounded-md"}
+      onClick={filterMenu}
+    >
+      Apply filters
+    </button>
+  );
+  const clearFilterButton = (
+    <button
+      className={
+        "border-[0.5px] border-[#AD6639] text-[#AD6639] p-2 rounded-md"
+      }
+      onClick={removeFilter}
+    >
+      Clear
+    </button>
+  );
 
   function displayModalButtons() {
     if (
@@ -100,8 +116,11 @@ function FilterModal(props: PropsType) {
     ) {
       return (
         <>
-          {applyFilterButton}
-          {clearFilterButton}
+          <hr className="w-100 mt-4 border-[#e6a881]" />
+          <div className="flex justify-end gap-2 mt-2">
+            {applyFilterButton}
+            {clearFilterButton}
+          </div>
         </>
       );
     }
@@ -113,8 +132,10 @@ function FilterModal(props: PropsType) {
   return (
     <div className="fixed mt-5 m-3">
       <div className="z-10 p-4 w-100 rounded-md bg-[#FDF2D7] border-[1px] border-[#AD6639] flex justify-center flex-col">
-        <div className="flex justify-end" onClick={toggleFilterModal}>
-          Close
+        <div className="flex justify-end">
+          <button onClick={toggleFilterModal}>
+            <img src="src/assets/close_icon.png" />
+          </button>
         </div>
 
         <div>
@@ -146,8 +167,7 @@ function FilterModal(props: PropsType) {
           </div>
         </div>
 
-        <hr className="w-100 mt-4 border-[#e6a881]" />
-        <div className="flex justify-end gap-2">{displayModalButtons()}</div>
+        {displayModalButtons()}
       </div>
     </div>
   );

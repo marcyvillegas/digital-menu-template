@@ -29,7 +29,6 @@ function useSearch(
     setMenuData(menuDataObject);
   }
 
-  // debounce function
   function changeSearchValue(event: React.ChangeEvent<HTMLInputElement>): void {
     setIsSearching(true);
     setSearchValue(event.target.value);

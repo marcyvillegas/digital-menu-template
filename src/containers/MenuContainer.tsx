@@ -7,8 +7,10 @@ import SearchInput from "../components/SearchInput";
 import { Menu, MenuType } from "../data/menu";
 import useSearch from "../hooks/useSearch";
 import useFilter from "../hooks/useFilter";
+import { useNavigate } from "react-router-dom";
 
 function MenuContainer() {
+  const navigate = useNavigate();
   const [menuData, setMenuData] = useState<MenuType>(Menu);
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
 
@@ -17,9 +19,6 @@ function MenuContainer() {
     setMenuData
   );
 
-  console.log(menuData);
-
-  // filter custom hook here
   const {
     filterMenuByCategory,
     selectedCategories,
@@ -28,6 +27,10 @@ function MenuContainer() {
     setFilterValues,
     removeFilter,
   } = useFilter(menuData, setMenuData);
+
+  function redirectToHome(): void {
+    navigate("/");
+  }
 
   function getMenuCategories(): Array<JSX.Element> {
     let subMenuItems: Array<JSX.Element> = [];
@@ -70,7 +73,10 @@ function MenuContainer() {
     <div className="flex justify-center">
       {filterModal}
       <div className="w-100">
-        <button className="p-2 mb-5 border-[0.5px] border-[#AD6639]">
+        <button
+          className="p-2 mb-5 border-[0.5px] border-[#AD6639]"
+          onClick={redirectToHome}
+        >
           <img src="src/assets/back_icon.png" />
         </button>
         <div className="mb-5 grid grid-cols-4 gap-4">
