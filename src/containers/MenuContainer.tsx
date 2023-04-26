@@ -6,6 +6,7 @@ import MenuCategoryName from "../components/MenuCategoryName";
 import SearchInput from "../components/SearchInput";
 import { Menu, MenuType } from "../data/menu";
 import useSearch from "../hooks/useSearch";
+import useFilter from "../hooks/useFilter";
 
 function MenuContainer() {
   const [menuData, setMenuData] = useState<MenuType>(Menu);
@@ -19,6 +20,13 @@ function MenuContainer() {
   console.log(menuData);
 
   // filter custom hook here
+  const {
+    filterMenuByCategory,
+    selectedCategories,
+    setSelectedCategories,
+    filterValues,
+    setFilterValues,
+  } = useFilter(menuData, setMenuData);
 
   function getMenuCategories(): Array<JSX.Element> {
     let subMenuItems: Array<JSX.Element> = [];
@@ -45,7 +53,16 @@ function MenuContainer() {
 
   const menuItems = isSearching ? <>SEARCHING</> : getMenuCategories();
 
-  const filterModal = showFilterModal && <FilterModal />;
+  const filterModal = showFilterModal && (
+    <FilterModal
+      toggleFilterModal={toggleFilterModal}
+      filterMenuByCategory={filterMenuByCategory}
+      selectedCategories={selectedCategories}
+      setSelectedCategories={setSelectedCategories}
+      filterValues={filterValues}
+      setFilterValues={setFilterValues}
+    />
+  );
 
   return (
     <div className="flex justify-center">

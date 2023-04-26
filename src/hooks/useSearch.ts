@@ -10,7 +10,7 @@ function useSearch(
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [originalMenuData] = useState<MenuType>(menuData);
 
-  function getSearchedData() {
+  function getSearchedData(): void {
     setMenuData(originalMenuData);
 
     let menuDataObject: any = {};

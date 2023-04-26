@@ -1,84 +1,73 @@
 import React, { useState } from "react";
-import { Menu, MenuType } from "../data/menu";
+import { MenuType } from "../data/menu";
+
+export type FilterValuesType = {
+  isNew: boolean;
+  isBestSeller: boolean;
+};
 
 function useFilter(
   menuData: MenuType,
   setMenuData: React.Dispatch<React.SetStateAction<MenuType>>
 ) {
-  const [filterValue, setFilterValue] = useState({
-    categories: [],
+  const [selectedCategories, setSelectedCategories] = useState<
+    Array<keyof MenuType>
+  >([]);
+  const [filterValues, setFilterValues] = useState<FilterValuesType>({
     isNew: false,
-    isFavorite: false,
+    isBestSeller: false,
   });
   const [originalMenuData] = useState<MenuType>(menuData);
-
-  // grouping of menu categories
-  function groupMenuByCategory(
-    menu: typeof Menu,
-    filteredCategories: string[] = []
-  ) {
-    const categories: any = {};
-
-    for (const item in Menu) {
-      const category = Menu[item as keyof MenuType];
-
-      if (!categories[category as unknown as keyof MenuType]) {
-        categories[category as unknown as keyof MenuType] = [];
-      }
-
-      categories[category as unknown as keyof MenuType].push(item);
-    }
-
-    if (filteredCategories.length > 0) {
-      const filteredCategoriesSet = new Set(filteredCategories);
-
-      for (const category in categories) {
-        if (!filteredCategoriesSet.has(category)) {
-          delete categories[category];
-        }
-      }
-    }
-
-    return categories;
-  }
-
-  // if these filters has values then call the filterMenuByCategory function
-  const categories = filterValue.categories;
-  const isNewFilter = filterValue.isNew;
-  const isFavoriteFilter = filterValue.isFavorite;
 
   function filterMenuByCategory(
     categories: (keyof MenuType)[],
     filters: {
       isNew?: boolean;
-      isFavorite?: boolean;
+      isBestSeller?: boolean;
     } = {}
-  ): MenuType[] {
-    let filteredMenu: any[] = [];
+  ) {
+    let filteredMenu: any = {};
 
-    categories.forEach((category) => {
-      let categoryMenu = Menu[category];
+    if (categories.length === 0 && (filters.isNew || filters.isBestSeller)) {
+      categories = Object.keys(menuData) as (keyof MenuType)[];
+    }
 
-      if (filters.isNew !== undefined) {
+    for (const subMenu in originalMenuData) {
+      let categoryMenu = originalMenuData[subMenu as keyof MenuType];
+
+      if (
+        !categories.includes(subMenu as keyof MenuType) &&
+        (!filters.isNew || !filters.isBestSeller)
+      ) {
+        categoryMenu = [];
+      }
+
+      if (filters.isNew && categories.includes(subMenu as keyof MenuType)) {
+        categoryMenu = categoryMenu.filter((item) => item.isNew === true);
+      }
+
+      if (
+        filters.isBestSeller &&
+        categories.includes(subMenu as keyof MenuType)
+      ) {
         categoryMenu = categoryMenu.filter(
-          (item) => item.isNew === filters.isNew
+          (item) => item.isBestSeller === true
         );
       }
 
-      if (filters.isFavorite !== undefined) {
-        categoryMenu = categoryMenu.filter(
-          (item) => item.isFavorite === filters.isFavorite
-        );
-      }
+      filteredMenu[subMenu] = categoryMenu;
+    }
 
-      filteredMenu = filteredMenu.concat(categoryMenu);
-    });
-
-    return filteredMenu;
+    setMenuData(filteredMenu);
   }
 
   return {
-    setFilterValue,
+    selectedCategories,
+    setSelectedCategories,
+    filterValues,
+    setFilterValues,
+    filterMenuByCategory,
+    //number of filters
   };
 }
 

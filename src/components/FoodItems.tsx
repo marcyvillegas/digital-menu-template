@@ -16,7 +16,7 @@ function FoodItems(props: PropsType) {
       <div className="flex justify-between mb-1">
         <p className="mr-10 flex items-center">
           {item.name}
-          {item.isFavorite && heartIcon}
+          {item.isBestSeller && heartIcon}
           {item.isNew && newIcon}
         </p>
         <p>{item.price.toFixed(2)}</p>
