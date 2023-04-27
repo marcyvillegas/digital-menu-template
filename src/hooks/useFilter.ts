@@ -122,6 +122,8 @@ function useFilter(
     removeFilter,
     toggleFilterModal,
     showFilterModal,
+    setAppliedSelectedCategories,
+    setAppliedFilterValues
     //number of filters
   };
 }

@@ -8,7 +8,15 @@ type NotificationPropsType = {
 function Logo(props: NotificationPropsType) {
   const { size } = props;
 
-  return <img src={logo} className={size} />;
+  function getClassName(): string {
+    if (size === LogoSizeEnum.SMALL) {
+      return "w-44";
+    }
+
+    return "";
+  }
+
+  return <img src={logo} className={getClassName()} />;
 }
 
 export default Logo;

@@ -4,6 +4,8 @@ import { Menu, MenuType } from "../data/menu";
 import { FilterValuesType } from "../hooks/useFilter";
 import { changeButtonColor } from "../components/FilterCategoryButton";
 import OtherFilterButton from "./OtherFilterButton";
+import ModalButton from "./ModalButton";
+import { ButtonTypeEnum } from "../enums/ButtonTypeEnum";
 
 type PropsType = {
   filterMenuByCategory: (
@@ -21,6 +23,7 @@ type PropsType = {
   filterValues: FilterValuesType;
   setFilterValues: React.Dispatch<React.SetStateAction<FilterValuesType>>;
   removeFilter: () => void;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function FilterModal(props: PropsType) {
@@ -32,6 +35,7 @@ function FilterModal(props: PropsType) {
     filterValues,
     setFilterValues,
     removeFilter,
+    setSearchValue,
   } = props;
 
   const menuData: MenuType = Menu;
@@ -87,25 +91,22 @@ function FilterModal(props: PropsType) {
   function applyFilters(): void {
     filterMenuByCategory(selectedCategories, filterValues);
     toggleFilterModal();
+    setSearchValue("");
   }
 
   const applyFilterButton = (
-    <button
-      className={"bg-[#AD6639] text-white p-2 rounded-md"}
+    <ModalButton
+      label={"Apply filters"}
       onClick={applyFilters}
-    >
-      Apply filters
-    </button>
+      type={ButtonTypeEnum.FILLED}
+    />
   );
   const clearFilterButton = (
-    <button
-      className={
-        "border-[0.5px] border-[#AD6639] text-[#AD6639] p-2 rounded-md"
-      }
+    <ModalButton
+      label={"Clear"}
       onClick={removeFilter}
-    >
-      Clear
-    </button>
+      type={ButtonTypeEnum.OUTLINE}
+    />
   );
 
   function displayModalButtons(): JSX.Element {

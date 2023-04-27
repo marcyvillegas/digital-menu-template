@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { MenuType } from "../data/menu";
+import { FilterValuesType } from "./useFilter";
 
 function useSearch(
   menuData: MenuType,
-  setMenuData: React.Dispatch<React.SetStateAction<MenuType>>
+  setMenuData: React.Dispatch<React.SetStateAction<MenuType>>,
+  setAppliedFilterValues: React.Dispatch<
+    React.SetStateAction<FilterValuesType>
+  >,
+  setAppliedSelectedCategories: React.Dispatch<
+    React.SetStateAction<(keyof MenuType)[]>
+  >
 ) {
   const [timer, setTimer] = useState(null);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -32,6 +39,11 @@ function useSearch(
   function changeSearchValue(event: React.ChangeEvent<HTMLInputElement>): void {
     setIsSearching(true);
     setSearchValue(event.target.value);
+    setAppliedSelectedCategories([]);
+    setAppliedFilterValues({
+      isNew: false,
+      isBestSeller: false,
+    });
 
     if (event.target.value.trim() === "") {
       setIsSearching(false);
@@ -48,6 +60,7 @@ function useSearch(
     searchValue,
     changeSearchValue,
     isSearching,
+    setSearchValue,
   };
 }
 

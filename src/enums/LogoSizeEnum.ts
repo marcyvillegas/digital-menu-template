@@ -1,4 +1,4 @@
 export enum LogoSizeEnum {
-    LARGE = '',
-    SMALL = 'w-44'
+    LARGE = 'LARGE',
+    SMALL = 'SMALL'
 }

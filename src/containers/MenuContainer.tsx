@@ -14,11 +14,6 @@ function MenuContainer() {
   const navigate = useNavigate();
   const [menuData, setMenuData] = useState<MenuType>(Menu);
 
-  const { searchValue, changeSearchValue, isSearching } = useSearch(
-    menuData,
-    setMenuData
-  );
-
   const {
     filterMenuByCategory,
     selectedCategories,
@@ -28,7 +23,17 @@ function MenuContainer() {
     removeFilter,
     toggleFilterModal,
     showFilterModal,
+    setAppliedFilterValues,
+    setAppliedSelectedCategories,
   } = useFilter(menuData, setMenuData);
+
+  const { searchValue, changeSearchValue, isSearching, setSearchValue } =
+    useSearch(
+      menuData,
+      setMenuData,
+      setAppliedFilterValues,
+      setAppliedSelectedCategories
+    );
 
   function redirectToHome(): void {
     navigate("/");
@@ -92,6 +97,7 @@ function MenuContainer() {
       filterValues={filterValues}
       setFilterValues={setFilterValues}
       removeFilter={removeFilter}
+      setSearchValue={setSearchValue}
     />
   );
 
