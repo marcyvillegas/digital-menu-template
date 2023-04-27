@@ -8,6 +8,7 @@ import { Menu, MenuType } from "../data/menu";
 import useSearch from "../hooks/useSearch";
 import useFilter from "../hooks/useFilter";
 import { useNavigate } from "react-router-dom";
+import DataState from "../components/DataState";
 
 function MenuContainer() {
   const navigate = useNavigate();
@@ -33,6 +34,22 @@ function MenuContainer() {
     navigate("/");
   }
 
+  function checkMenuLenght(): boolean {
+    let menuLength = 0;
+
+    for (const subMenu in menuData) {
+      const foodList = menuData[subMenu as keyof MenuType];
+
+      menuLength += foodList.length;
+    }
+
+    if (menuLength > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
   function getMenuCategories(): Array<JSX.Element> {
     let subMenuItems: Array<JSX.Element> = [];
 
@@ -52,7 +69,19 @@ function MenuContainer() {
     return subMenuItems.map((item) => item);
   }
 
-  const menuItems = isSearching ? <>SEARCHING</> : getMenuCategories();
+  function displayMenu() {
+    if (isSearching) {
+      return <DataState icon={"search_icon.png"} label={"Searching..."} />;
+    }
+
+    if (!checkMenuLenght()) {
+      return (
+        <DataState icon={"empty_box_icon.png"} label={"No Results Found"} />
+      );
+    }
+
+    return getMenuCategories();
+  }
 
   const filterModal = showFilterModal && (
     <FilterModal
@@ -80,7 +109,7 @@ function MenuContainer() {
           <SearchInput value={searchValue} onChange={changeSearchValue} />
           <FilterButton onClick={toggleFilterModal} />
         </div>
-        {menuItems}
+        {displayMenu()}
       </div>
     </div>
   );

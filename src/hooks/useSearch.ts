@@ -47,7 +47,7 @@ function useSearch(
   return {
     searchValue,
     changeSearchValue,
-    isSearching
+    isSearching,
   };
 }
 
