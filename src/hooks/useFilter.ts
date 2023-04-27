@@ -13,13 +13,25 @@ function useFilter(
   const [selectedCategories, setSelectedCategories] = useState<
     Array<keyof MenuType>
   >([]);
+
   const [filterValues, setFilterValues] = useState<FilterValuesType>({
     isNew: false,
     isBestSeller: false,
   });
+
+  const [appliedSelectedCategories, setAppliedSelectedCategories] = useState<
+    Array<keyof MenuType>
+  >([]);
+
+  const [appliedFilterValues, setAppliedFilterValues] =
+    useState<FilterValuesType>({
+      isNew: false,
+      isBestSeller: false,
+    });
+
+  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+
   const [originalMenuData] = useState<MenuType>(menuData);
-  const [applyFilterButtonIsClicked, setAppliedFilterIsClicked] =
-    useState<boolean>(false);
 
   function removeFilter(): void {
     setSelectedCategories([]);
@@ -30,7 +42,14 @@ function useFilter(
     setMenuData(originalMenuData);
   }
 
-  console.log(originalMenuData)
+  const otherFiltersOnlyAreSelected =
+    selectedCategories.length === 0 &&
+    (filterValues.isNew || filterValues.isBestSeller);
+
+  const noFiltersAreSelected =
+    selectedCategories.length === 0 &&
+    !filterValues.isNew &&
+    !filterValues.isBestSeller;
 
   function filterMenuByCategory(
     categories: (keyof MenuType)[],
@@ -41,11 +60,16 @@ function useFilter(
   ) {
     let filteredMenu: any = {};
 
-    if (categories.length === 0 && (filters.isNew || filters.isBestSeller)) {
+    if (otherFiltersOnlyAreSelected) {
       categories = Object.keys(menuData) as (keyof MenuType)[];
     }
 
-    if (categories.length === 0 && !filters.isNew && !filters.isBestSeller) {
+    if (noFiltersAreSelected) {
+      setAppliedSelectedCategories([]);
+      setAppliedFilterValues({
+        isNew: false,
+        isBestSeller: false,
+      });
       return setMenuData(originalMenuData);
     }
 
@@ -76,6 +100,17 @@ function useFilter(
     }
 
     setMenuData(filteredMenu);
+    setAppliedSelectedCategories(selectedCategories);
+    setAppliedFilterValues(filterValues);
+  }
+
+  console.log(appliedSelectedCategories);
+  console.log(appliedFilterValues);
+
+  function toggleFilterModal(): void {
+    setShowFilterModal(!showFilterModal);
+    setSelectedCategories(appliedSelectedCategories);
+    setFilterValues(appliedFilterValues);
   }
 
   return {
@@ -85,8 +120,8 @@ function useFilter(
     setFilterValues,
     filterMenuByCategory,
     removeFilter,
-    applyFilterButtonIsClicked,
-    setAppliedFilterIsClicked,
+    toggleFilterModal,
+    showFilterModal,
     //number of filters
   };
 }

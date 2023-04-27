@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 function MenuContainer() {
   const navigate = useNavigate();
   const [menuData, setMenuData] = useState<MenuType>(Menu);
-  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
 
   const { searchValue, changeSearchValue, isSearching } = useSearch(
     menuData,
@@ -26,8 +25,8 @@ function MenuContainer() {
     filterValues,
     setFilterValues,
     removeFilter,
-    applyFilterButtonIsClicked,
-    setAppliedFilterIsClicked,
+    toggleFilterModal,
+    showFilterModal,
   } = useFilter(menuData, setMenuData);
 
   function redirectToHome(): void {
@@ -53,10 +52,6 @@ function MenuContainer() {
     return subMenuItems.map((item) => item);
   }
 
-  function toggleFilterModal(): void {
-    setShowFilterModal(!showFilterModal);
-  }
-
   const menuItems = isSearching ? <>SEARCHING</> : getMenuCategories();
 
   const filterModal = showFilterModal && (
@@ -68,8 +63,6 @@ function MenuContainer() {
       filterValues={filterValues}
       setFilterValues={setFilterValues}
       removeFilter={removeFilter}
-      applyFilterButtonIsClicked={applyFilterButtonIsClicked}
-      setAppliedFilterIsClicked={setAppliedFilterIsClicked}
     />
   );
 

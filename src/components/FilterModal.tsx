@@ -21,8 +21,6 @@ type PropsType = {
   filterValues: FilterValuesType;
   setFilterValues: React.Dispatch<React.SetStateAction<FilterValuesType>>;
   removeFilter: () => void;
-  applyFilterButtonIsClicked: boolean;
-  setAppliedFilterIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function FilterModal(props: PropsType) {
@@ -34,8 +32,6 @@ function FilterModal(props: PropsType) {
     filterValues,
     setFilterValues,
     removeFilter,
-    applyFilterButtonIsClicked,
-    setAppliedFilterIsClicked,
   } = props;
 
   const menuData: MenuType = Menu;
@@ -89,7 +85,6 @@ function FilterModal(props: PropsType) {
   }
 
   function applyFilters(): void {
-    setAppliedFilterIsClicked(true);
     filterMenuByCategory(selectedCategories, filterValues);
     toggleFilterModal();
   }
@@ -113,12 +108,11 @@ function FilterModal(props: PropsType) {
     </button>
   );
 
-  function displayModalButtons() {
+  function displayModalButtons(): JSX.Element {
     if (
       selectedCategories.length !== 0 ||
       filterValues.isNew ||
-      filterValues.isBestSeller ||
-      applyFilterButtonIsClicked
+      filterValues.isBestSeller
     ) {
       return (
         <>
@@ -130,6 +124,13 @@ function FilterModal(props: PropsType) {
         </>
       );
     }
+
+    return (
+      <>
+        <hr className="w-100 mt-4 border-[#e6a881]" />
+        <div className="flex justify-end gap-2 mt-2">{applyFilterButton}</div>
+      </>
+    );
   }
 
   const bestSellerButtonColor = changeButtonColor(filterValues.isBestSeller);
