@@ -12,39 +12,53 @@ export const Breakfast: SubMenuType[] = [
     details: "",
     isNew: false,
     isBestSeller: false,
-    price: 100.5,
+    price: 150.0,
   },
   {
     name: "Longganisa & Garlic Fried Rice",
     details: "",
     isNew: false,
     isBestSeller: false,
-    price: 100.5,
+    price: 90.0,
   },
   {
     name: "Bangus & Garlic Fried Rice",
     details: "",
     isNew: true,
     isBestSeller: false,
-    price: 100.5,
+    price: 120.0,
   },
 ];
 
 export const Pork: SubMenuType[] = [
   {
-    name: "Pork Sinigang",
+    name: "Sinigang",
     details: "",
     isNew: false,
     isBestSeller: false,
-    price: 100.0,
+    price: 200.0,
   },
   {
     name: "Liempo",
     details: "",
     isNew: true,
     isBestSeller: false,
-    price: 100.0,
-  }
+    price: 250.0,
+  },
+  {
+    name: "Kare-Kare",
+    details: "",
+    isNew: false,
+    isBestSeller: false,
+    price: 200.0,
+  },
+  {
+    name: "Sisig",
+    details: "",
+    isNew: true,
+    isBestSeller: false,
+    price: 150.0,
+  },
 ];
 
 export const Beef: SubMenuType[] = [
@@ -53,15 +67,15 @@ export const Beef: SubMenuType[] = [
     details: "",
     isNew: false,
     isBestSeller: false,
-    price: 100.0,
+    price: 350.0,
   },
   {
     name: "Beef Steak",
     details: "",
     isNew: false,
     isBestSeller: true,
-    price: 100.0,
-  }
+    price: 200.0,
+  },
 ];
 
 export const Seafood: SubMenuType[] = [
@@ -70,14 +84,14 @@ export const Seafood: SubMenuType[] = [
     details: "",
     isNew: false,
     isBestSeller: false,
-    price: 100.0,
+    price: 120.0,
   },
   {
     name: "Adobong Pusit",
     details: "",
     isNew: true,
     isBestSeller: false,
-    price: 100.0,
+    price: 120.0,
   },
 ];
 
@@ -86,14 +100,14 @@ export const Dessert: SubMenuType[] = [
     name: "Halo-halo",
     details: "",
     isNew: false,
-    isBestSeller: false,
-    price: 100.0,
+    isBestSeller: true,
+    price: 45.0,
   },
   {
     name: "Leche Flan",
     details: "",
     isNew: false,
     isBestSeller: true,
-    price: 100.0,
-  }
+    price: 30.0,
+  },
 ];
