@@ -109,7 +109,7 @@ function MenuContainer() {
           className="p-2 mb-5 border-[0.5px] border-[#AD6639]"
           onClick={redirectToHome}
         >
-          <img src="src/assets/back_icon.png" />
+          <img src="/assets/back_icon.png" />
         </button>
         <div className="mb-5 grid grid-cols-4 gap-4">
           <SearchInput value={searchValue} onChange={changeSearchValue} />

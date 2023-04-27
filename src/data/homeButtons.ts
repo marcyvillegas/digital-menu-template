@@ -8,19 +8,19 @@ type HomeButtonsType = {
 export const HomeButtonsData: HomeButtonsType[] = [
   {
     label: 'MENU',
-    icon: 'src/assets/menu_icon.png',
+    icon: '/assets/menu_icon.png',
     link: '/menu',
     isTargetBlank: false,
   },
   {
     label: 'FACEBOOK',
-    icon: 'src/assets/facebook_icon.png',
+    icon: '/assets/facebook_icon.png',
     link: 'https://www.facebook.com/',
     isTargetBlank: true,
   },
   {
     label: 'INSTAGRAM',
-    icon: 'src/assets/ig_icon.png',
+    icon: '/assets/ig_icon.png',
     link: 'https://www.instagram.com/',
     isTargetBlank: true,
   }

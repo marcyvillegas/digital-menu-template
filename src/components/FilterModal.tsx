@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MenuCategoryButton from "./FilterCategoryButton";
 import { Menu, MenuType } from "../data/menu";
 import { FilterValuesType } from "../hooks/useFilter";
@@ -142,7 +142,7 @@ function FilterModal(props: PropsType) {
       <div className="z-10 p-4 w-100 rounded-md bg-[#FDF2D7] border-[1px] border-[#AD6639] flex justify-center flex-col">
         <div className="flex justify-end">
           <button onClick={toggleFilterModal}>
-            <img src="src/assets/close_icon.png" />
+            <img src="/assets/close_icon.png" />
           </button>
         </div>
 

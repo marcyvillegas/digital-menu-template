@@ -9,7 +9,7 @@ function FoodItems(props: PropsType) {
   const { foodList } = props;
 
   const createdFoodLists = foodList.map((item) => {
-    const heartIcon = <img className="ml-1" src="/src/assets/heart_icon.png" />;
+    const heartIcon = <img className="ml-1" src="/assets/heart_icon.png" />;
     const newIcon = <div className="bg-[#AD6639] text-white p-1 ml-1 text-[10px] rounded-md">New!</div>
 
     return (
