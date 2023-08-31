@@ -84,7 +84,7 @@ function useFilter(
       }
 
       if (filters.isNew && categories.includes(subMenu as keyof MenuType)) {
-        categoryMenu = categoryMenu.filter((item) => item.isNew === true);
+        categoryMenu = categoryMenu.filter((item) => item.isNew);
       }
 
       if (
@@ -92,7 +92,7 @@ function useFilter(
         categories.includes(subMenu as keyof MenuType)
       ) {
         categoryMenu = categoryMenu.filter(
-          (item) => item.isBestSeller === true
+          (item) => item.isBestSeller
         );
       }
 

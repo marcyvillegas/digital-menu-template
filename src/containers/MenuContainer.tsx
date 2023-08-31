@@ -39,7 +39,7 @@ function MenuContainer() {
     navigate("/");
   }
 
-  function checkMenuLenght(): boolean {
+  function checkMenuLength(): boolean {
     let menuLength = 0;
 
     for (const subMenu in menuData) {
@@ -48,11 +48,7 @@ function MenuContainer() {
       menuLength += foodList.length;
     }
 
-    if (menuLength > 0) {
-      return true;
-    }
-
-    return false;
+    return menuLength > 0;
   }
 
   function getMenuCategories(): Array<JSX.Element> {
@@ -79,7 +75,7 @@ function MenuContainer() {
       return <DataState icon={"search_icon.png"} label={"Searching..."} />;
     }
 
-    if (!checkMenuLenght()) {
+    if (!checkMenuLength()) {
       return (
         <DataState icon={"empty_box_icon.png"} label={"No Results Found"} />
       );
